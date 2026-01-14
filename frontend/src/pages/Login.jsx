@@ -58,6 +58,10 @@ export default function Login() {
           <a href="/forgot-password">Forgot password?</a>
         </p>
 
+        <p style={{ marginTop: "10px" }}>
+          <a href="/register">Register</a>
+        </p>
+
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>

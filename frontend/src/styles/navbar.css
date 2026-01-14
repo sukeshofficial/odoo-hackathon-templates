@@ -20,6 +20,14 @@
   gap: 16px;
 }
 
+.navbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
 .navbar .nav-link {
   font-size: 14px;
   color: var(--muted);

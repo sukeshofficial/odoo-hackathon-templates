@@ -38,14 +38,16 @@ export const registerUser = async (req, res) => {
     // Hash Password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const profilePhotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+
     // Insert New User
     const newUser = await pool.query(
       `
-      INSERT INTO users (name, email, password)
-      VALUES ($1, $2, $3)
-      RETURNING id, name, email, created_at
+      INSERT INTO users (name, email, password, profile_photo)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id, name, email, profile_photo created_at
       `,
-      [name, email, hashedPassword]
+      [name, email, hashedPassword, profilePhotoPath]
     );
 
     return res.status(201).json({
@@ -74,7 +76,7 @@ export const loginUser = async (req, res) => {
 
     // Find User from DB
     const userResult = await pool.query(
-      "SELECT id, name, email, password, created_at FROM users WHERE email = $1",
+      "SELECT id, name, email, password, profile_photo, created_at FROM users WHERE email = $1",
       [email]
     );
 

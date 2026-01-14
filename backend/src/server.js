@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/uploads", express.static("uploads"));
 
 // test route
 app.get("/api/health", (req, res) => {
@@ -38,8 +39,26 @@ app.get("/api/health", (req, res) => {
 //   res.json(result.rows);
 // });
 
-app.get("/api/auth/me", authMiddleware, (req, res) => {
-  res.json({ user: req.user });
+app.get("/api/auth/me", authMiddleware, async (req, res) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT id, name, email, profile_photo, created_at
+      FROM users
+      WHERE id = $1
+      `,
+      [req.userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    res.json({ user: result.rows[0] });
+  } catch (err) {
+    console.error("ME ERROR:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 const PORT = process.env.PORT;
