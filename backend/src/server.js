@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 // import prisma from "./config/db.js";
+import { runMigrations } from "./config/migrate.js";
 import pool from "./config/db.js";
 import createUsersTable from "./config/intiDB.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -14,10 +15,15 @@ dotenv.config();
 const app = express();
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 app.use("/api/auth", authRoutes);
 
@@ -32,11 +38,8 @@ app.get("/api/health", (req, res) => {
 //   res.json(result.rows);
 // });
 
-app.get("/api/protected", authMiddleware, (req, res) => {
-  res.json({
-    message: "You accessed a protected route 🎉",
-    user: req.user,
-  });
+app.get("/api/auth/me", authMiddleware, (req, res) => {
+  res.json({ user: req.user });
 });
 
 const PORT = process.env.PORT;
@@ -48,6 +51,7 @@ async function startServer() {
 
     // create Users Table once
     await createUsersTable();
+    await runMigrations();
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

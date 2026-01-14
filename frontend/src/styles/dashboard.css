@@ -1,0 +1,31 @@
+.dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.dashboard h1 {
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
