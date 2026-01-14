@@ -1,4 +1,5 @@
-import express, { Router } from "express";
+import { Router } from "express";
+import upload from "../middleware/upload.middleware.js";
 import {
   registerUser,
   loginUser,
@@ -9,7 +10,7 @@ import {
 
 const router = Router();
 
-router.post("/register", registerUser);
+router.post("/register", upload.single("profilePhoto"), registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.post("/forgot-password", forgotPassword);

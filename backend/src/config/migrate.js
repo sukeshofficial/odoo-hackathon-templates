@@ -4,6 +4,7 @@ export const runMigrations = async () => {
   try {
     await pool.query(`
       ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS profile_photo TEXT,
       ADD COLUMN IF NOT EXISTS reset_token TEXT,
       ADD COLUMN IF NOT EXISTS reset_token_expiry TIMESTAMP
     `);
