@@ -1,16 +1,122 @@
-# React + Vite
+# 🖥️ Authentication Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a modern, clean **React authentication frontend** built using **Vite**.  
+It integrates with a Node.js backend using **cookie-based JWT authentication**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## React Compiler
+- **React**
+- **Vite**
+- **React Router**
+- **Axios**
+- **Context API**
+- **Pure CSS (Light Mode, SaaS-style UI)**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📂 Folder Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+````
+
+frontend/
+├── src/
+│   ├── api/
+│   │   ├── api.js
+│   │   └── auth.js
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   │   └── useAuth.js
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   └── ProtectedRoute.jsx
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── ForgotPassword.jsx
+│   │   └── ResetPassword.jsx
+│   ├── styles/
+│   │   ├── index.css
+│   │   ├── App.css
+│   │   ├── auth.css
+│   │   ├── navbar.css
+│   │   └── dashboard.css
+│   ├── App.jsx
+│   └── main.jsx
+└── package.json
+
+````
+
+---
+
+## 🔐 Authentication Flow
+
+- Login sets JWT in **HttpOnly cookie**
+- On page refresh:
+  - Frontend calls `/api/auth/me`
+  - Backend validates cookie
+  - User session is restored
+- Protected routes redirect unauthenticated users
+- Logout clears cookie securely
+
+---
+
+## 🌐 Routes
+
+| Route | Description |
+|-----|------------|
+| `/login` | Login page |
+| `/register` | Registration page |
+| `/forgot-password` | Request password reset |
+| `/reset-password/:token` | Reset password |
+| `/` | Protected dashboard |
+
+---
+
+## ⚙️ Axios Configuration
+
+All API calls use a single Axios instance with cookies enabled:
+
+```js
+const api = axios.create({
+  baseURL: "http://localhost:5000",
+  withCredentials: true,
+});
+````
+
+---
+
+## ▶️ Running the Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+Frontend runs on:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🎨 UI Features
+
+* Clean **light-mode** SaaS-style UI
+* Responsive layout
+* Accessible form inputs
+* Loading & error states
+* Modular CSS (no framework lock-in)
+
+---
+
+## 📌 Notes
+
+* No JWT stored in localStorage (security-first)
+* Backend-driven session validation
+* Easy to extend with roles, permissions, or refresh tokens
+
+---
