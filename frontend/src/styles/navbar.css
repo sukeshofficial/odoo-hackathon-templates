@@ -1,0 +1,49 @@
+.navbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar .brand a {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.navbar .links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar .nav-link {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.navbar .nav-link:hover {
+  color: var(--text);
+}
+
+.user-email {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.btn-logout {
+  padding: 8px 12px;
+  background: #fee2e2;
+  color: #991b1b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-logout:hover {
+  background: #fecaca;
+}
