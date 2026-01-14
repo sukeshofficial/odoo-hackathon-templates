@@ -3,7 +3,6 @@ import crypto from "crypto";
 import pool from "../config/db.js";
 import { generateToken } from "../utils/jwt.js";
 import { sendEmail } from "../utils/sendEmail.js";
-import path from "path";
 
 export const registerUser = async (req, res) => {
   try {
@@ -45,7 +44,7 @@ export const registerUser = async (req, res) => {
       `
       INSERT INTO users (name, email, password, profile_photo)
       VALUES ($1, $2, $3, $4)
-      RETURNING id, name, email, profile_photo created_at
+      RETURNING id, name, email, profile_photo, created_at
       `,
       [name, email, hashedPassword, profilePhotoPath]
     );

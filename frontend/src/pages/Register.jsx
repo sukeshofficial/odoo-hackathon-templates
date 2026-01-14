@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { registerUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import AvatarUpload from "../components/AvatarUpload";
 import "../styles/auth.css";
+import api from "../api/api";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profileUrl, setProfileUrl] = useState("");
+  const [profilePhotoFile, setProfilePhotoFile] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +20,26 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await registerUser({ name, email, password, profile_url: profileUrl });
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+
+      if (profilePhotoFile) {
+        formData.append("profilePhoto", profilePhotoFile); // MUST MATCH multer
+      }
+
+      // DEBUG — TEMPORARY
+      for (let pair of formData.entries()) {
+        console.log("FORMDATA:", pair[0], pair[1]);
+      }
+
+      await api.post("/api/auth/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
@@ -33,9 +52,9 @@ export default function Register() {
     <div className="auth-page">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
-        
-        <AvatarUpload size="sm" />
-        
+
+        <AvatarUpload size="sm" onFileSelect={setProfilePhotoFile} />
+
         {error && <div className="error">{error}</div>}
 
         <label>Name</label>
