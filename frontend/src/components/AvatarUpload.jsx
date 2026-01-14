@@ -1,16 +1,19 @@
 import { useRef, useState } from "react";
 import "../styles/avatar-upload.css";
 
-export default function AvatarUpload({ size = "md" }) {
+export default function AvatarUpload({ size = "md", onFileSelect }) {
   const inputRef = useRef(null);
   const [preview, setPreview] = useState(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    
+    setPreview(URL.createObjectURL(file));
 
-    const previewUrl = URL.createObjectURL(file);
-    setPreview(previewUrl);
+    if (typeof onFileSelect === "function") {
+      onFileSelect(file);
+    }
   };
 
   const sizeClass =
