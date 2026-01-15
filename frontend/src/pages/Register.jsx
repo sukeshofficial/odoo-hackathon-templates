@@ -49,11 +49,14 @@ export default function Register() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page auth-split">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
-
-        <AvatarUpload size="sm" onFileSelect={setProfilePhotoFile} />
+        
+        <div className="profile-picture-wrapper">
+          <label className="profile-picture-label">Profile Picture</label>
+          <AvatarUpload size="sm" onFileSelect={setProfilePhotoFile} />
+        </div>
 
         {error && <div className="error">{error}</div>}
 

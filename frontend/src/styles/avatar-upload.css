@@ -4,7 +4,7 @@
   height: 96px;
   border-radius: 50%;
   background-color: #f1f5f9;
-  border: 1px solid #e5e7eb;
+  border: 2px dashed rgba(9, 0, 55, 0.501);
   overflow: hidden;
   cursor: pointer;
   display: flex;
@@ -47,7 +47,6 @@
   font-size: 12px;
   color: #64748b;
   text-align: center;
-  padding: 6px;
 }
 
 /* Optional sizes */
@@ -59,4 +58,8 @@
 .avatar-lg {
   width: 120px;
   height: 120px;
+}
+
+.avatar-upload .avatar-placeholder-img {
+  border: none;
 }

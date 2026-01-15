@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import "../styles/avatar-upload.css";
+import avatarPlaceholder from "../assets/avatar-placeholder.png";
 
 export default function AvatarUpload({ size = "md", onFileSelect }) {
   const inputRef = useRef(null);
@@ -8,7 +9,7 @@ export default function AvatarUpload({ size = "md", onFileSelect }) {
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     setPreview(URL.createObjectURL(file));
 
     if (typeof onFileSelect === "function") {
@@ -25,9 +26,11 @@ export default function AvatarUpload({ size = "md", onFileSelect }) {
         <img src={preview} alt="Avatar preview" />
       ) : (
         <div className="avatar-placeholder">
-          Profile
-          <br />
-          Photo
+          <img
+            src={avatarPlaceholder}
+            alt="Profile placeholder"
+            className="avatar-upload img avatar-placeholder-img"
+          />
         </div>
       )}
 

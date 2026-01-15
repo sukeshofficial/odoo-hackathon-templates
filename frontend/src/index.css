@@ -48,3 +48,13 @@ a:hover {
 button {
   font-family: inherit;
 }
+
+/* Global text selection style */
+::selection {
+  background-color: #0f172a2f;
+}
+
+/* Firefox specific support */
+::-moz-selection {
+  background-color: #0f172a2f;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api/api";
-import "../styles/auth.css";
+import "../styles/forgot-password.css";
+
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -23,8 +24,8 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="auth-page">
-      <form className="auth-form" onSubmit={handleSubmit}>
+    <div className="forgot-page">
+      <form className="forgot-form" onSubmit={handleSubmit}>
         <h2>Forgot Password</h2>
 
         {message && <p>{message}</p>}

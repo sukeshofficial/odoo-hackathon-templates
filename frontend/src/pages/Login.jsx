@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../api/auth";
 import { useAuth } from "../context/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/auth.css";
 
 export default function Login() {
@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page auth-split">
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         {error && <div className="error">{error}</div>}
@@ -53,18 +53,22 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        
-        <p style={{ marginTop: "10px" }}>
-          <a href="/forgot-password">Forgot password?</a>
+
+        <p>
+          <a href="/forgot-password" className="forgot-password">Forgot password?</a>
         </p>
 
-        <p style={{ marginTop: "10px" }}>
-          <a href="/register">Register</a>
-        </p>
 
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
+
+        <div className="auth-footer">
+          <span>Don&apos;t have an account?</span>
+          <Link to="/register" className="auth-link">
+            Create one
+          </Link>
+        </div>
       </form>
     </div>
   );

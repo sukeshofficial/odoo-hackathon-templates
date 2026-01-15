@@ -82,3 +82,282 @@
   color: var(--muted);
   text-align: center;
 }
+
+/* --- Login-only split layout (applies only when .auth-split is present) --- */
+.auth-page.auth-split {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 1fr min(480px, 42%);
+  align-items: center;
+  gap: 36px;
+  padding: 48px;
+  box-sizing: border-box;
+}
+
+/* left hero panel created with pseudo-element */
+/* .auth-page.auth-split::before {
+  content: "";
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  border-radius: 12px;
+  height: min(70vh, 720px);
+  justify-self: stretch;
+  align-self: center;
+  background: linear-gradient(135deg, #6a4ef7 0%, #ff7aa2 60%, #ffb86b 100%);
+  box-shadow: 0 28px 60px rgba(40, 30, 70, 0.28);
+  position: relative;
+  overflow: hidden;
+} */
+
+.auth-page.auth-split::before {
+  content: "";
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  border-radius: 12px;
+  height: min(70vh, 720px);
+  align-self: center;
+
+  background:
+    /* linear-gradient(135deg, #6a4ef7 0%, #ff7aa2 60%, #ffb86b 100%), */
+    url("../assets/auth-illustration.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  box-shadow: 0 28px 60px rgba(40, 30, 70, 0.28);
+}
+
+/* welcome text inside left panel (pseudo-element) */
+.auth-page.auth-split::after {
+  /* short heading + subtext; using \A for newline */
+  /* content: "Welcome to website\ALorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor."; */
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  justify-self: start;
+  align-self: center;
+  padding: 64px 56px;
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(22px, 4vw, 44px);
+  line-height: 1.05;
+  white-space: pre-line;
+  pointer-events: none;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  max-width: 68%;
+}
+
+/* ensure the form sits in the right column */
+.auth-page.auth-split .auth-form {
+  grid-column: 2 / 3;
+  margin: 0;
+  width: 100%;
+  max-width: 480px; /* keep it comfortable */
+  padding: 36px;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(18,20,30,0.06);
+}
+
+/* pill inputs (only for login when auth-split present) */
+.auth-page.auth-split .auth-form input {
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(20,25,40,0.06);
+  background: rgba(245,246,250,0.9);
+  font-size: 15px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* button: horizontal pill + gradient */
+.auth-page.auth-split .auth-form button {
+  margin-top: 20px;
+  padding: 12px 18px;
+  width: 100%;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg,#5b45f2 0%, #ff6b95 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 10px 30px rgba(99, 67, 217, 0.18);
+}
+
+/* link styles inside the form */
+.auth-page.auth-split .auth-form a {
+  color: rgba(99, 67, 217, 0.95);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* meta text center / spacing tweak */
+.auth-page.auth-split .auth-form .meta {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #7b7b8a;
+}
+
+/* keep error/success look consistent */
+.auth-page.auth-split .error,
+.auth-page.auth-split .success {
+  margin-bottom: 12px;
+}
+
+/* mobile fallback: switch to single column (keeps register safe) */
+@media (max-width: 880px) {
+  .auth-page.auth-split {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .auth-page.auth-split::before,
+  .auth-page.auth-split::after {
+    display: none;
+  }
+
+  .auth-page.auth-split .auth-form {
+    max-width: 520px;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .auth-page.auth-split .auth-form input {
+    border-radius: 8px; /* keep consistent with existing mobile design */
+  }
+
+  .auth-page.auth-split .auth-form button {
+    border-radius: 8px;
+  }
+}
+
+/* ---------- Register link on Login: make it look like a pill CTA ---------- */
+.auth-page.auth-split .register-link {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(90deg, #6a48f320 0%, #ff6b95 100%);
+  box-shadow: 0 10px 28px rgba(99, 67, 217, 0.14);
+}
+
+/* a secondary style variant (if you want border instead of full fill) */
+/* .auth-page.auth-split .register-link.secondary {
+  background: transparent;
+  color: #6b48f3;
+  border: 1px solid rgba(107,72,243,0.14);
+} */
+
+/* ------------ Ensure Register form uses the same split styles ------------ */
+/* (these rules are already present if you used the earlier snippet;
+   repeat or tweak if needed) */
+
+.auth-page.auth-split .auth-form {
+  grid-column: 2 / 3;
+  margin: 0;
+  width: 100%;
+  max-width: 480px;
+  padding: 36px;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(18,20,30,0.06);
+}
+
+/* pill inputs for split layout */
+.auth-page.auth-split .auth-form input {
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(20,25,40,0.06);
+  background: rgba(245,246,250,0.9);
+  font-size: 15px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* gradient pill submit for both login & register in split layout */
+.auth-page.auth-split .auth-form button {
+  margin-top: 20px;
+  padding: 12px 18px;
+  width: 100%;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(90deg,#5b45f2 0%, #ff6b95 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 10px 30px rgba(99, 67, 217, 0.18);
+}
+
+/* mobile fallback: switch to single column */
+@media (max-width: 880px) {
+  .auth-page.auth-split {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .auth-page.auth-split::before,
+  .auth-page.auth-split::after {
+    display: none;
+  }
+
+  .auth-page.auth-split .auth-form {
+    max-width: 520px;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .auth-page.auth-split .auth-form input {
+    border-radius: 8px;
+  }
+
+  .auth-page.auth-split .auth-form button,
+  .auth-page.auth-split .register-link {
+    border-radius: 8px;
+  }
+}
+
+/* ---- Login footer text (below Login button) ---- */
+.auth-page.auth-split .auth-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  color: #7b7b8a;
+}
+
+.auth-page.auth-split .auth-footer span {
+  margin-right: 6px;
+}
+
+.auth-page.auth-split .auth-link {
+  color: #5b45f2;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-page.auth-split .auth-link:hover {
+  text-decoration: underline;
+}
+
+.forgot-password {
+  font-size: 0.85rem;
+  color: #5b45f2;
+  text-decoration: none;
+}
+
+/* ---- Register: Profile picture alignment ---- */
+.profile-picture-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 👈 centers horizontally */
+  margin-bottom: 20px;
+}
+
+.profile-picture-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280; /* soft gray */
+}
+
