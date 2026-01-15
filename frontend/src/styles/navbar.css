@@ -37,6 +37,7 @@
   width: 34px;
   height: 34px;
   object-fit: contain;
+  animation: logoShine 2.2s infinite ease-in-out;
 }
 .logo-text {
   font-weight: 700;
@@ -44,6 +45,11 @@
   background: linear-gradient(120deg, #fff, #b992ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.logo-img:hover {
+  cursor: pointer;
+  transform: rotateY(360deg) rotateX(18deg) scale(1.1);
+  transition: transform 0.8s ease;
 }
 
 /* ===== Desktop Menu ===== */
@@ -71,6 +77,20 @@
 }
 .nav-link:hover::after {
   width: 100%;
+}
+
+@keyframes logoShine {
+  0% {
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.2));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.2));
+  }
 }
 
 /* ===== Right: user area ===== */
@@ -273,6 +293,9 @@
 /* ===== Responsive rules ===== */
 @media (min-width: 1024px) {
   .mobile-menu {
+    display: none;
+  }
+  .menu-overlay {
     display: none;
   }
 }
