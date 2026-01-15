@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/api";
-import "../styles/auth.css";
+import "../styles/reset-password.css";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -34,8 +34,8 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="auth-page">
-      <form className="auth-form" onSubmit={handleSubmit}>
+    <div className="reset-page">
+      <form className="reset-form" onSubmit={handleSubmit}>
         <h2>Reset Password</h2>
 
         {message && <p>{message}</p>}
