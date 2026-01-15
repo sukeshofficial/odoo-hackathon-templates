@@ -53,7 +53,7 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <nav className="navbar-links">
             {navItems.map((item) => (
-              <Link key={item.label} to={item.to} className="nav-link">
+              <Link key={item.label} to={item.to} className="nav-link custom-link">
                 {item.label}
               </Link>
             ))}
@@ -103,7 +103,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 to={item.to}
-                className="mobile-link"
+                className="mobile-link custom-link"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
